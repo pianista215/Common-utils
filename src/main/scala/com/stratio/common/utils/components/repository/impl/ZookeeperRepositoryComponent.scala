@@ -57,7 +57,6 @@ trait ZookeeperRepositoryComponent extends RepositoryComponent[String, Array[Byt
       )
     }
 
-
     def getNodes(entity: String): Try[Seq[String]] =
       Try(curatorClient
         .getChildren
@@ -67,6 +66,13 @@ trait ZookeeperRepositoryComponent extends RepositoryComponent[String, Array[Byt
       Try(curatorClient
         .getChildren
         .forPath(s"/$entity").size.toLong)
+
+
+    override def existsPath(entity: String): Try[Boolean] =
+      Try(Option(curatorClient
+        .checkExists()
+        .forPath(s"/$entity"))
+      ).map(_.isDefined)
 
     def exists(entity: String, id: String): Try[Boolean] =
       Try(Option(curatorClient
