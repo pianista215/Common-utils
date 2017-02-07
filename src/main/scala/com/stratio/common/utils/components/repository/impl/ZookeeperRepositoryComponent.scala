@@ -75,10 +75,7 @@ trait ZookeeperRepositoryComponent extends RepositoryComponent[String, Array[Byt
       ).map(_.isDefined)
 
     def exists(entity: String, id: String): Try[Boolean] =
-      Try(Option(curatorClient
-        .checkExists()
-        .forPath(s"/$entity/$id"))
-      ).map(_.isDefined)
+      existsPath(s"/$entity/$id")
 
     def create(entity: String, id: String, element: Array[Byte]): Try[Array[Byte]] =
       Try(

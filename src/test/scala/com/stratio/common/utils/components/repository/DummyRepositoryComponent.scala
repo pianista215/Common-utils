@@ -47,7 +47,7 @@ trait DummyRepositoryComponent extends RepositoryComponent[String, String] {
 
 
     def existsPath(entity: String): Try[Boolean] =
-      Try(memoryMap.exists { case (key, entityMap) =>
+      Try(memoryMap.exists { case (key, _) =>
         key == entity
       })
 
