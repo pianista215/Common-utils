@@ -1,6 +1,14 @@
 # Changelog
 
-## 0.7.0 (upcoming)
+## 0.9.0 (upcoming)
+
+* Pending changelog
+
+## 0.8.0 (January 30, 2017)
+
+* Update Zookeeper repository management
+
+## 0.7.0 (October 2016)
 
 * Upgrade typesafe config to 1.3.0
 * Upgrade akka to 2.4.9
