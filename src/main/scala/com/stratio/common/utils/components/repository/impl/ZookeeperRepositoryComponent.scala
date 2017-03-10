@@ -40,7 +40,7 @@ trait ZookeeperRepositoryComponent extends RepositoryComponent[String, Array[Byt
 
   class ZookeeperRepository(path: Option[String] = None) extends Repository {
 
-    private def curatorClient: CuratorFramework =
+    protected def curatorClient: CuratorFramework =
       ZookeeperRepository.getInstance(getZookeeperConfig)
 
     def get(entity: String, id: String): Try[Option[Array[Byte]]] =
@@ -111,7 +111,7 @@ trait ZookeeperRepositoryComponent extends RepositoryComponent[String, Array[Byt
       )
 
     def getZookeeperConfig: Config = {
-      config.getConfig(path.getOrElse(ConfigZookeeper))
+      config.getConfig(ConfigZookeeper)
         .getOrElse(throw new ZookeeperRepositoryException(s"Zookeeper config not found"))
     }
 
