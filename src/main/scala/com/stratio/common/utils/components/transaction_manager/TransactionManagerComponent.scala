@@ -29,16 +29,12 @@ trait TransactionManagerComponent[K,V] {
       * Code execution exclusion zone over a given set of cluster-wide resources.
       *
       * @param entity Entity prefix used for the content repository providing synchronization mechanisms
-      * @param firstResource First resource in the protected resource set
-      * @param resources Remaining resources in the protected resource set
+      * @param resource Protected resource
       * @param block Code to execute in the exclusion area over the resources
       * @tparam T Return type of the exclusion area block
       * @return Exclusion area result after its executions
       */
-    def atomically[T](entity: String,
-      firstResource: TransactionResource,
-      resources: TransactionResource*
-    )(block: => T): T
+    def atomically[T](entity: String, resource: TransactionResource)(block: => T): T
 
     /**
       * Code execution exclusion zone over a given repository content. The exlucsion area will be
