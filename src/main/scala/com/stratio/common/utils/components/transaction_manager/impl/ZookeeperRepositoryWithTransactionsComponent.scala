@@ -33,37 +33,24 @@ trait ZookeeperRepositoryWithTransactionsComponent extends ZookeeperRepositoryCo
   class ZookeeperRepositoryWithTransactions(path: Option[String] = None) extends ZookeeperRepository(path)
     with TransactionalRepository {
 
-    //TODO: Improve path option usage
-    private def acquisitionResource: String = "/locks" + path.map("/" + _).getOrElse("")
-
     private object AcquiredLocks {
 
       import collection.mutable.Map
 
-      private val acquisitionLock: InterProcessMutex = new InterProcessMutex(curatorClient, acquisitionResource)
-
       private val path2lock: Map[String, InterProcessMutex] = Map.empty
 
-      def acquireResources(paths: Seq[String]): Unit = {
-        acquisitionLock.acquire()
+      def acquireResource(path: String): Unit =
         path2lock.synchronized {
-          paths foreach { path =>
-            val lock = path2lock.get(path) getOrElse {
-              val newLock = new InterProcessMutex(curatorClient, path)
-              path2lock += (path -> newLock)
-              newLock
-            }
-            lock.acquire()
+          val lock = path2lock.get(path) getOrElse {
+            val newLock = new InterProcessMutex(curatorClient, path)
+            path2lock += (path -> newLock)
+            newLock
           }
+          lock.acquire()
         }
-        acquisitionLock.release()
-      }
 
-      def freeResources(paths: Seq[String]): Unit = path2lock.synchronized {
-        for {
-          path <- paths
-          lock <- path2lock.get(path)
-        } {
+      def freeResource(path: String): Unit = path2lock.synchronized {
+        path2lock.get(path) foreach { lock =>
           lock.release()
           if(!lock.isAcquiredInThisProcess)
             path2lock -= path
@@ -76,19 +63,20 @@ trait ZookeeperRepositoryWithTransactionsComponent extends ZookeeperRepositoryCo
       s"/locks/$entity/${resource.id}"
     }
 
-    override def atomically[T](
-                                entity: String,
-                                firstResource: TransactionResource,
-                                resources: TransactionResource*)(block: => T): T = {
+    override def atomically[T](entity: String, resource: TransactionResource)(block: => T): T = {
 
-      val paths = (firstResource +: resources).map(lockPath(entity))
-      AcquiredLocks.acquireResources(paths)
+      import AcquiredLocks._
+
+      val path = lockPath(entity)(resource)
+
+      acquireResource(path)
       val res = try {
         block
       } finally {
-        AcquiredLocks.freeResources(paths)
+        freeResource(path)
       }
       res
+
     }
 
   }

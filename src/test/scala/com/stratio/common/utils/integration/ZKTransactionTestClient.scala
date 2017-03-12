@@ -65,9 +65,14 @@ object ZKTransactionTestClient extends App {
   val segments = segmentsStr.grouped(2)
 
 
-  def mayBeProtected(block: => Unit): Unit =
-    if(resources.isEmpty) block
-    else transactionManager.repository.atomically("test", resources.head, resources.tail:_*)(block)
+  def mayBeProtected(block: => Unit): Unit = {
+    def nestedAtomicAreas(resources: Seq[TransactionResource]): Unit =
+      if(resources.isEmpty) block
+      else transactionManager.repository.atomically("test", resources.head) {
+        nestedAtomicAreas(resources.tail)
+      }
+    nestedAtomicAreas(resources)
+  }
 
   val transactionManager = new ZookeeperRepositoryWithTransactionsComponent
     with TypesafeConfigComponent with Slf4jLoggerComponent
