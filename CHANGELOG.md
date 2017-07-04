@@ -5,6 +5,7 @@ Only listing significant user-visible, not internal code cleanups and minor bug 
 ## 0.11.0 (upcoming)
 
 * Upgrade Curator to 3.3.0
+* Upgrade Akka to 2.5.3
 
 ## 0.10.0 (February 23, 2017)
 
