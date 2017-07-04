@@ -6,6 +6,8 @@ Only listing significant user-visible, not internal code cleanups and minor bug 
 
 * Upgrade Curator to 3.3.0
 * Upgrade Akka to 2.5.3
+* Fix GenericDAO to make them actually generic
+* Add Transaction Manager Component
 
 ## 0.10.0 (February 23, 2017)
 
