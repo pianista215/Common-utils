@@ -2,6 +2,10 @@
 
 Only listing significant user-visible, not internal code cleanups and minor bug fixes.
 
+## 0.12.0 (upcoming)
+
+* Pending changelog
+
 ## 0.11.0 (upcoming)
 
 * Upgrade Curator to 3.3.0
