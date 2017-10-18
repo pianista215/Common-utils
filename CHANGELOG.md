@@ -1,8 +1,27 @@
 # Changelog
 
-## 0.9.0 (upcoming)
+Only listing significant user-visible, not internal code cleanups and minor bug fixes.
 
-* Pending changelog
+## 0.12.0 (upcoming)
+
+* Make "Try.sequence" tail recursive 
+
+## 0.11.0 (July 06, 2017)
+
+* Upgrade Curator to 3.3.0
+* Upgrade Akka to 2.5.3
+* Fix GenericDAO to make them actually generic
+* Add Transaction Manager Component
+
+## 0.10.0 (February 23, 2017)
+
+* Bump Spark to 2.1.0
+* Bump Curator to 3.2.0
+* Remove Spark Logging
+
+## 0.9.0 (February 07, 2017)
+
+* Add exists path in DAO Components
 
 ## 0.8.0 (January 30, 2017)
 

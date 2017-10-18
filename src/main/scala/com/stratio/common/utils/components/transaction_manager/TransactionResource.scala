@@ -1,3 +1,4 @@
+
 /*
  * Copyright (C) 2015 Stratio (http://stratio.com)
  *
@@ -13,26 +14,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.stratio.common.utils.functional
+package com.stratio.common.utils.components.transaction_manager
 
-import scala.annotation.tailrec
-import scala.util.{Failure, Success, Try}
+trait TransactionResource {
+  def id: String
+}
 
-object TryUtils {
+object TransactionResource {
 
-  def sequence[T](s: Seq[Try[T]]): Try[Seq[T]] = {
-
-    @tailrec
-    def recSequence(s: Seq[Try[T]], acc: Seq[T]): Try[Seq[T]] =
-      if (s.nonEmpty) {
-        s.head match {
-          case Success(v) => recSequence(s.tail, v +: acc)
-          case Failure(cause) => Failure(cause)
-        }
-      } else {
-        Success(acc reverse)
-      }
-    recSequence(s, Seq.empty)
+  object WholeRepository extends TransactionResource {
+    override def id: String = "_all"
   }
 
 }

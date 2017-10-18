@@ -18,18 +18,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    
+
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
         <groupId>com.stratio</groupId>
         <artifactId>parent</artifactId>
-        <version>0.8.2</version>
+        <version>0.9.0</version>
     </parent>
 
     <groupId>com.stratio.common</groupId>
     <artifactId>common-utils_2.11</artifactId>
-    <version>0.9.0-SNAPSHOT</version>
+    <version>0.12.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Stratio Common Utils</name>
@@ -41,10 +41,10 @@
         <typesafe.version>1.3.0</typesafe.version>
         <scalatest.version>2.2.2</scalatest.version>
         <junit.version>4.11</junit.version>
-        <akka.version>2.4.9</akka.version>
+        <akka.version>2.5.3</akka.version>
         <json4s.version>3.4.0</json4s.version>
-        <curator.version>3.2.0</curator.version>
-        <spark.version>1.6.2</spark.version>
+        <curator.version>3.3.0</curator.version>
+        <spark.version>2.1.0</spark.version>
         <slf4j.version>1.7.7</slf4j.version>
         <scalaz-version>7.2.1</scalaz-version>
         <!-- Scala version and cross build properties -->
